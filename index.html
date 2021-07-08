@@ -14,17 +14,43 @@
     <header>
         <h1> countries' data</h1>
     </header>
+
+
+    <div class="main-container">
+        <div class="table-container">
+
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>alpha3Code</th>
+                        <th>population</th>
+                        <th>capital</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
     <div class="pagination">
 
         <ol id="numbers"></ol>
     </div>
-
-    <div class="main-container">
-        <div class="table-container">
-            <div id="table">
-            </div>
-        </div>
-    </div>
+    <form name="form1">
+        <label for="name">Country name:*</label><br>
+        <input onkeypress="return /[a-z]/i.test(event.key)" id="name" name="name" required><br>
+        <label for="code">alpha3Code:*</label><br>
+        <input onkeypress="return /[a-z]/i.test(event.key)" id="code" name="code" maxlength="3" required><br>
+        <label for="popu">population:*</label><br>
+        <input type="number" id="popu" name="popu" required><br>
+        <label for="capital">capital:</label><br>
+        <input type="text" id="capital" name="capital"><br>
+        <input type=button value="Submit" onclick="readdata()">
+    </form>
+    <div id="toast">"data with * must be filled out"</div>
 </body>
 
 </html>
