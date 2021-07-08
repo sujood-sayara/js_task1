@@ -1,15 +1,5 @@
 var link = document.createElement("link");
 //loading CSS file
-// set properties of link tag
-link.href = "task1.css";
-link.rel = "stylesheet";
-link.type = "text/css";
-// commit
-// Loaded successfully
-link.onload = function () {
-  console.log("success");
-};
-
 // Loading failedvar link = document.createElement("link");
 //loading CSS file
 // set properties of link tag
@@ -19,7 +9,7 @@ link.type = "text/css";
 
 // Loaded successfully
 link.onload = function () {
-  console.log("success");
+  console.log("load success");
 };
 
 // Loading failed
