@@ -1,48 +1,40 @@
-var link = document.createElement("link");
 //loading CSS file
-// set properties of link tag
+let link = document.createElement("link");
 link.href = "task1.css";
 link.rel = "stylesheet";
 link.type = "text/css";
 
-// Loaded successfully
 link.onload = function () {
   console.log("success");
 };
 
-// Loading failed
 link.onerror = function () {
   console.log("error");
 };
 
-//create table
 
 const tbody = document.getElementById("tbody");
-
 const rowsPerPage = 10;
 const data1 = [];
-var data2={};
+let data2 = {};
+let numbers = $("#numbers");
 //api URL
-const requestOne = "https://restcountries.eu/rest/v2/all";
-makeRequest(requestOne);
-function makeRequest(requestUrl) {
+const url = "https://restcountries.eu/rest/v2/all";
+
+function getData(requestUrl) {
   fetch(requestUrl)
     .then((res) => res.json())
     .then((data) => {
       makepagination(data);
-      for (let i = 0; i <data.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         createRow(data[i]);
       }
       displayRows(1);
-      data2=data;
+      data2 = data;
     });
- 
-    
 }
-var i=0;
+
 function createRow(cityObj) {
-  i++;
-  console.log(i);
   let row_2 = document.createElement("tr");
   let row_2_name = document.createElement("td");
   row_2_name.innerHTML = cityObj.name;
@@ -59,67 +51,53 @@ function createRow(cityObj) {
   tbody.appendChild(row_2);
   data1.push(row_2);
 }
-var numbers = $("#numbers");
+
 function makepagination(data) {
-  
   const rowsCount = data.length;
   const pageCount = Math.ceil(rowsCount / rowsPerPage); // avoid decimals
- 
-  for (var i = 0; i < pageCount; i++) {
+  for (let i = 0; i < pageCount; i++) {
     numbers.append('<li><a href="#">' + (i + 1) + "</a></li>");
   }
-  
-  
+
   $("#numbers li:first-child a").addClass("active");
   $("#numbers li a").click(function (e) {
-  var $this = $(this);
-
+    let $this = $(this);
     e.preventDefault();
-
     // Remove the active class from the links.
     $("#numbers li a").removeClass("active");
-
     // Add the active class to the current link.
     $this.addClass("active");
-  
     // Show the rows corresponding to the clicked page ID.
     displayRows($this.text());
   });
-  
 }
+
 function displayRows(index) {
-  var start = (index - 1) * rowsPerPage;
-  var end = start + rowsPerPage;
+  let start = (index - 1) * rowsPerPage;
+  let end = start + rowsPerPage;
   $(data1).hide();
   $(data1).slice(start, end).show();
 }
-function readdata(){
- 
-  var c_name=document.forms["form1"]["name"].value;
-  let C_code=document.forms["form1"]["code"].value;
-  var c_population=document.forms["form1"]["popu"].value;
-  var c_capital=document.forms["form1"]["capital"].value;
-  
 
-if(c_name==null || c_name=='' || C_code==null || c_name=='' || c_population==null || c_population==''){
-   launch_toast();
-}
-else if(C_code.length!=3){
-  alert("code must contain 3 character");}
-else {
-  C_code.toUpperCase();
-  const new_data = {name:c_name,alpha3Code:C_code,population:c_population,capital:c_capital};
+function save_data() {
+  let c_name = document.forms["form1"]["name"].value;
+  let C_code = document.forms["form1"]["code"].value;
+  let c_population = document.forms["form1"]["popu"].value;
+  let c_capital = document.forms["form1"]["capital"].value;
+  const new_data = {
+    name: c_name,
+    alpha3Code: C_code,
+    population: c_population,
+    capital: c_capital,
+  };
+
   data2.push(new_data);
-  
-  document.getElementById('numbers').innerHTML = "";
+  document.getElementById("numbers").innerHTML = "";
   makepagination(data2);
- createRow(data2[data2.length-1]);
- displayRows(1);
-   
+  createRow(data2[data2.length - 1]);
+  displayRows(1);
+
+  return false;
 }
-}
-function launch_toast() {
-  var x = document.getElementById("toast")
-  x.className = "show";
-  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
-}
+
+getData(url);

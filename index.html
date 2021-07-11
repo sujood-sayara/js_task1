@@ -14,8 +14,6 @@
     <header>
         <h1> countries' data</h1>
     </header>
-
-
     <div class="main-container">
         <div class="table-container">
 
@@ -29,28 +27,29 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
-
                 </tbody>
             </table>
-
         </div>
     </div>
     <div class="pagination">
 
         <ol id="numbers"></ol>
     </div>
-    <form name="form1">
-        <label for="name">Country name:*</label><br>
-        <input onkeypress="return /[a-z]/i.test(event.key)" id="name" name="name" required><br>
-        <label for="code">alpha3Code:*</label><br>
-        <input onkeypress="return /[a-z]/i.test(event.key)" id="code" name="code" maxlength="3" required><br>
-        <label for="popu">population:*</label><br>
-        <input type="number" id="popu" name="popu" required><br>
-        <label for="capital">capital:</label><br>
-        <input type="text" id="capital" name="capital"><br>
-        <input type=button value="Submit" onclick="readdata()">
-    </form>
-    <div id="toast">"data with * must be filled out"</div>
+    <div class="main-container">
+        <form name="form1" onSubmit="return save_data();">
+            <label for="name">Country name:*</label><br>
+            <input id="name" name="name" required data-value-missing=”Translate(‘Required’) pattern='^[a-zA-Z]{1,}$'
+                title="letters only"><br>
+            <label for="code">alpha3Code:*</label><br>
+            <input id="code" name="code" required data-value-missing=”Translate(‘Required’) pattern='^[a-zA-Z]{3}$'
+                title="3 letters"><br>
+            <label for="popu">population:*</label><br>
+            <input type="number" id="popu" name="popu" required data-value-missing=”Translate(‘Required’)><br>
+            <label for="capital">capital:</label><br>
+            <input type="text" id="capital" name="capital"><br>
+            <input type="submit" value="submit">
+        </form>
+    </div>
 </body>
 
 </html>
